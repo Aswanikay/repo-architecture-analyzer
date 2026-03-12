@@ -51,11 +51,11 @@ def get_system_prompt() -> str:
                 """
 
 
-def stream_architecture_analysis(content: str) -> str:
-    if not content:
+def stream_architecture_analysis(message, history) -> str:
+    if not message:
         return  ""# or: yield "" and return
     system_message = get_system_prompt()
-    user_message = "Hi there. Please analyze the architecture of the following GitHub repository and create an onboarding guide for a new developer. Repository URL:" + content
+    user_message = "Hi there. Please analyze the architecture of the following GitHub repository and create an onboarding guide for a new developer. Repository URL:" + message
 
 
     stream = get_client().chat.completions.create(
@@ -73,9 +73,8 @@ def stream_architecture_analysis(content: str) -> str:
 
 
 def main():
-    repo_url = gradio.Textbox(label="Repository URL")
-
-    gradio.Interface(fn=stream_architecture_analysis, inputs=repo_url, outputs=gradio.Markdown()).launch()
+    ##repo_url = gradio.Textbox(label="Repository URL")
+    gradio.ChatInterface(fn=stream_architecture_analysis).launch()
 
 if __name__ == "__main__":
     main()
