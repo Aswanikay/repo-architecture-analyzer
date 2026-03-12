@@ -1,0 +1,12 @@
+name: llms
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - requests
+  - pip
+  - pip:
+    - openai
+    - ollama
+    - gradio
